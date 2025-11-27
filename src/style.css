@@ -1,0 +1,228 @@
+:root {
+  color-scheme: dark;
+  --bg: #05060a;
+  --bg-elevated: #10121a;
+  --border-subtle: #24283b;
+  --accent: #7aa2f7;
+  --accent-soft: rgba(122, 162, 247, 0.12);
+  --accent-strong: #7dcfff;
+  --text-main: #e5e9f0;
+  --text-muted: #6c7086;
+  --danger: #f7768e;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.6);
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text',
+    'Segoe UI', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: radial-gradient(circle at top, #16161e 0, #05060a 60%);
+  color: var(--text-main);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+}
+
+.app {
+  max-width: 960px;
+  margin: auto;
+  padding: 32px 20px 40px;
+  width: 100%;
+}
+
+.app-header {
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  margin: 0 0 8px;
+  font-size: 2.4rem;
+  letter-spacing: 0.04em;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.input-section {
+  margin-top: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.source-text {
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background: rgba(5, 6, 10, 0.85);
+  color: var(--text-main);
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  outline: none;
+  box-shadow: 0 0 0 1px transparent;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.source-text:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-soft), var(--shadow-soft);
+  background: #05060a;
+}
+
+.source-text::placeholder {
+  color: #44495e;
+}
+
+.controls {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border-radius: 999px;
+  padding: 9px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s ease, transform 0.08s ease,
+    box-shadow 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+.primary {
+  background: var(--accent);
+  color: #05060a;
+  font-weight: 600;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+}
+
+.secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+.emphasis {
+  padding-inline: 22px;
+}
+
+.chunks-section {
+  margin-top: 28px;
+  padding: 18px 18px 16px;
+  border-radius: var(--radius-lg);
+  background: rgba(10, 11, 18, 0.95);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+}
+
+.chunks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  color: var(--text-muted);
+}
+
+.chunk-content {
+  margin: 0;
+  padding: 14px 14px 12px;
+  border-radius: var(--radius-md);
+  background: #05060a;
+  border: 1px dashed var(--border-subtle);
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.chunk-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 22px 14px 30px;
+  }
+  .chunk-actions {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Damn you, Discord</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="app">
+      <main class="app">
+        <header class="app-header">
+          <h1>Damn you, Discord</h1>
+          <p class="subtitle">
+            Split long messages into Discord-sized chunks and copy them one by
+            one.
+          </p>
+        </header>
+
+        <section class="input-section">
+          <label for="sourceText" class="input-label">Your message</label>
+          <textarea
+            id="sourceText"
+            class="source-text"
+            placeholder="Paste or write your long message here..."
+          ></textarea>
+        </section>
+
+        <section class="controls">
+          <button id="splitButton" class="primary">SPLIT</button>
+          <div class="meta">
+            <span id="charCount">0 characters</span>
+          </div>
+        </section>
+
+        <section id="chunksSection" class="chunks-section hidden">
+          <header class="chunks-header">
+            <span id="chunkIndex">Chunk 1 / 1</span>
+            <span id="chunkChars">0 / 2000 chars</span>
+          </header>
+
+          <pre id="chunkContent" class="chunk-content"></pre>
+
+          <div class="chunk-actions">
+            <button id="prevChunk" class="secondary">Previous</button>
+            <button id="copyNext" class="primary emphasis">
+              Copy and go next
+            </button>
+            <button id="nextChunk" class="secondary">Next</button>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
