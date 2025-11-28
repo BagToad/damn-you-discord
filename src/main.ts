@@ -194,13 +194,15 @@ function renderChunk() {
 
   prevChunkBtn.disabled = currentIndex === 0;
   nextChunkBtn.disabled = currentIndex === total - 1;
-  copyNextBtn.textContent = rizzMode
-    ? currentIndex === total - 1
-      ? 'Copy final rizz'
-      : 'Copy and speedrun'
-    : currentIndex === total - 1
-      ? 'Copy last chunk'
-      : 'Copy and go next';
+  if (rizzMode) {
+    prevChunkBtn.textContent = 'Go back fr';
+    nextChunkBtn.textContent = 'Next lvl';
+    copyNextBtn.textContent = currentIndex === total - 1 ? 'Copy final rizz' : 'Copy and speedrun';
+  } else {
+    prevChunkBtn.textContent = 'Previous';
+    nextChunkBtn.textContent = 'Next';
+    copyNextBtn.textContent = currentIndex === total - 1 ? 'Copy last chunk' : 'Copy and go next';
+  }
 }
 
 async function copyCurrentChunk(): Promise<void> {
