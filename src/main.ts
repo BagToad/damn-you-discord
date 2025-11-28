@@ -139,7 +139,9 @@ function setRizzMode(enabled: boolean) {
   }
 
   if (rizzToggleLabel) {
-    (rizzToggleLabel as HTMLElement).textContent = enabled ? 'Chill the rizz?' : 'More rizz?';
+    (rizzToggleLabel as HTMLElement).textContent = enabled
+      ? "I'm an unc fr"
+      : 'More rizz?';
   }
 
   if (sourceText) {
