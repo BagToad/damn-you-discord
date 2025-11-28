@@ -107,12 +107,68 @@ const prevChunkBtn = document.getElementById('prevChunk') as HTMLButtonElement;
 const nextChunkBtn = document.getElementById('nextChunk') as HTMLButtonElement;
 const copyNextBtn = document.getElementById('copyNext') as HTMLButtonElement;
 
+const rizzToggle = document.getElementById('rizzToggle') as HTMLInputElement | null;
+
 let chunks: Chunk[] = [];
 let currentIndex = 0;
+let rizzMode = false;
+
+function setRizzMode(enabled: boolean) {
+  rizzMode = enabled;
+  document.body.classList.toggle('rizz-mode', enabled);
+
+  const title = document.querySelector('title');
+  const header = document.querySelector('.app-header h1');
+  const subtitle = document.querySelector('.subtitle');
+  const inputLabel = document.querySelector('.input-label');
+  const rizzToggleLabel = document.querySelector('.rizz-toggle-label span');
+
+  if (title) {
+    title.textContent = enabled ? 'Rizzcord Message Nuker' : 'Damn you, Discord';
+  }
+  if (header) {
+    header.textContent = enabled ? 'Rizzcord Message Nuker' : 'Damn you, Discord';
+  }
+  if (subtitle) {
+    subtitle.textContent = enabled
+      ? 'Turn one sigma wall of text into bite-size Discord brainrots.'
+      : 'Split long messages into Discord-sized chunks and copy them one by one.';
+  }
+  if (inputLabel) {
+    inputLabel.textContent = enabled ? 'Drop the paragraph, NPC' : 'Your message';
+  }
+
+  if (rizzToggleLabel) {
+    (rizzToggleLabel as HTMLElement).textContent = enabled ? 'Chill the rizz?' : 'More rizz?';
+  }
+
+  if (sourceText) {
+    sourceText.placeholder = enabled
+      ? 'Paste your 4AM overshare here, bestie...'
+      : 'Paste or write your long message here...';
+  }
+
+  if (splitButton) {
+    splitButton.textContent = enabled ? 'COOK THIS TEXT' : 'SPLIT';
+  }
+
+  renderChunk();
+  updateCharCount();
+
+  try {
+    window.localStorage.setItem('rizz-mode', enabled ? '1' : '0');
+  } catch {
+    // ignore persistence errors
+  }
+}
 
 function updateCharCount() {
   const length = sourceText.value.length;
-  charCount.textContent = `${length} character${length === 1 ? '' : 's'}`;
+  if (rizzMode) {
+    charCount.textContent = `${length} goofy ahh letter${length === 1 ? '' : 's'}`;
+  } else {
+    charCount.textContent = `${length} character${length === 1 ? '' : 's'}`;
+  }
 }
 
 function renderChunk() {
@@ -127,13 +183,24 @@ function renderChunk() {
   const idx = currentIndex + 1;
   const current = chunks[currentIndex];
 
-  chunkIndex.textContent = `Chunk ${idx} / ${total}`;
-  chunkChars.textContent = `${current.length} / ${DISCORD_LIMIT} chars`;
+  if (rizzMode) {
+    chunkIndex.textContent = `Lore slice ${idx} / ${total}`;
+    chunkChars.textContent = `${current.length} / ${DISCORD_LIMIT} braincells`;
+  } else {
+    chunkIndex.textContent = `Chunk ${idx} / ${total}`;
+    chunkChars.textContent = `${current.length} / ${DISCORD_LIMIT} chars`;
+  }
   chunkContent.textContent = current.text;
 
   prevChunkBtn.disabled = currentIndex === 0;
   nextChunkBtn.disabled = currentIndex === total - 1;
-  copyNextBtn.textContent = currentIndex === total - 1 ? 'Copy last chunk' : 'Copy and go next';
+  copyNextBtn.textContent = rizzMode
+    ? currentIndex === total - 1
+      ? 'Copy final rizz'
+      : 'Copy and speedrun'
+    : currentIndex === total - 1
+      ? 'Copy last chunk'
+      : 'Copy and go next';
 }
 
 async function copyCurrentChunk(): Promise<void> {
@@ -202,4 +269,21 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-updateCharCount();
+if (rizzToggle) {
+  let initial = false;
+  try {
+    initial = window.localStorage.getItem('rizz-mode') === '1';
+  } catch {
+    initial = false;
+  }
+
+  rizzToggle.checked = initial;
+  setRizzMode(initial);
+
+  rizzToggle.addEventListener('change', () => {
+    setRizzMode(rizzToggle.checked);
+  });
+} else {
+  setRizzMode(false);
+}
+
